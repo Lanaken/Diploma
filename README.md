@@ -19,6 +19,7 @@
 git clone https://github.com/electrum/tpch-dbgen.git
 cd tpch-dbgen
 make
+---
 
 ## Шаг 2.
 ./dbgen -s 1
