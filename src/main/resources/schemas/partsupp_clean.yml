@@ -1,0 +1,7 @@
+table: partsupp_clean
+columns:
+  - { name: ps_partkey,   type: INT }
+  - { name: ps_suppkey,   type: INT }
+  - { name: ps_availqty,  type: INT }
+  - { name: ps_supplycost, type: DECIMAL, precision: 15, scale: 2 }
+  - { name: ps_comment,   type: CHAR, length: 199 }

@@ -1,0 +1,321 @@
+→ Выполняем план #1, стоимость = 82891.0
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: HashJoin(INNER, L on [s_suppkey, o_custkey])
+Children групп: [[supplier, customer], [orders]]
+───────────────────────────────────────────────────────────────────────────
+  → HashJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='o_custkey', buildSideLeft=true, partitioned=false)
+    материализуем левую ветку (MergeJoin(INNER on [s_suppkey = c_custkey]))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: MergeJoin(INNER on [s_suppkey = c_custkey])
+Children групп: [[supplier], [customer]]
+───────────────────────────────────────────────────────────────────────────
+  → SortMergeJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='c_custkey', alreadySorted=true, condOp=EQUALS)
+    материализуем левую ветку (Scan(supplier, card=10000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(supplier, card=10000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(supplier): возвращаем исходный файл
+    путь к файлу: tables/supplier.tbl
+    → левый «сырой» файл: tables/supplier.tbl
+    материализуем правую ветку (Scan(customer, card=150000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(customer, card=150000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(customer): возвращаем исходный файл
+    путь к файлу: tables/customer.tbl
+    → правый «сырой» файл: tables/customer.tbl
+    alreadySorted=true → используем исходные файлы без дополнительной сортировки
+    создаём временный файл-вывода: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_13797908148521524995.tbl
+    leftSorted = tables/supplier.tbl, rightSorted = tables/customer.tbl
+    запускаем MergeJoinIterator...
+    → SortMergeJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_13797908148521524995.tbl
+    → внешний файл для build (левая ветка): /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_13797908148521524995.tbl
+    материализуем правую ветку (Scan(orders, card=1500000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(orders, card=1500000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(orders): возвращаем исходный файл
+    путь к файлу: tables/orders.tbl
+    → внешний файл для probe (правая ветка): tables/orders.tbl
+    buildSideLeft=true → buildFile = leftFile, probeFile = rightFile
+    buildFile    = /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_13797908148521524995.tbl
+    buildSchema  (число полей) = 15
+    probeFile    = tables/orders.tbl
+    probeSchema  (число полей) = 9
+    buildKey     = 's_suppkey'
+    probeKey     = 'o_custkey'
+    создаём временный файл-вывода для HashJoin: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_5441301873114052465.tbl
+    → Partitioned = false → запускаем HashJoinIterator (в память)
+    → HashJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_5441301873114052465.tbl
+✓ План #1 выполнен за 1.524830542s, результат: build/output/plan1-20250624-144614.txt
+→ Выполняем план #2, стоимость = 90836.0
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: HashJoin(INNER, L on [o_custkey, c_custkey])
+Children групп: [[orders, supplier], [customer]]
+───────────────────────────────────────────────────────────────────────────
+  → HashJoinOp(joinType=INNER, outerKey='o_custkey', innerKey='c_custkey', buildSideLeft=true, partitioned=false)
+    материализуем левую ветку (HashJoin(INNER, L on [s_suppkey, o_custkey]))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: HashJoin(INNER, L on [s_suppkey, o_custkey])
+Children групп: [[supplier], [orders]]
+───────────────────────────────────────────────────────────────────────────
+  → HashJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='o_custkey', buildSideLeft=true, partitioned=false)
+    материализуем левую ветку (Scan(supplier, card=10000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(supplier, card=10000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(supplier): возвращаем исходный файл
+    путь к файлу: tables/supplier.tbl
+    → внешний файл для build (левая ветка): tables/supplier.tbl
+    материализуем правую ветку (Scan(orders, card=1500000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(orders, card=1500000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(orders): возвращаем исходный файл
+    путь к файлу: tables/orders.tbl
+    → внешний файл для probe (правая ветка): tables/orders.tbl
+    buildSideLeft=true → buildFile = leftFile, probeFile = rightFile
+    buildFile    = tables/supplier.tbl
+    buildSchema  (число полей) = 7
+    probeFile    = tables/orders.tbl
+    probeSchema  (число полей) = 9
+    buildKey     = 's_suppkey'
+    probeKey     = 'o_custkey'
+    создаём временный файл-вывода для HashJoin: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_8334751188734860113.tbl
+    → Partitioned = false → запускаем HashJoinIterator (в память)
+    → HashJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_8334751188734860113.tbl
+    → внешний файл для build (левая ветка): /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_8334751188734860113.tbl
+    материализуем правую ветку (Scan(customer, card=150000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(customer, card=150000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(customer): возвращаем исходный файл
+    путь к файлу: tables/customer.tbl
+    → внешний файл для probe (правая ветка): tables/customer.tbl
+    buildSideLeft=true → buildFile = leftFile, probeFile = rightFile
+    buildFile    = /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_8334751188734860113.tbl
+    buildSchema  (число полей) = 16
+    probeFile    = tables/customer.tbl
+    probeSchema  (число полей) = 8
+    buildKey     = 'o_custkey'
+    probeKey     = 'c_custkey'
+    создаём временный файл-вывода для HashJoin: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_14786405642318961979.tbl
+    → Partitioned = false → запускаем HashJoinIterator (в память)
+    → HashJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_14786405642318961979.tbl
+✓ План #2 выполнен за 1.515509167s, результат: build/output/plan2-20250624-144614.txt
+→ Выполняем план #3, стоимость = 92236.0
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: HashJoin(INNER, L on [c_custkey, o_custkey])
+Children групп: [[customer], [orders, supplier]]
+───────────────────────────────────────────────────────────────────────────
+  → HashJoinOp(joinType=INNER, outerKey='c_custkey', innerKey='o_custkey', buildSideLeft=true, partitioned=false)
+    материализуем левую ветку (Scan(customer, card=150000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(customer, card=150000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(customer): возвращаем исходный файл
+    путь к файлу: tables/customer.tbl
+    → внешний файл для build (левая ветка): tables/customer.tbl
+    материализуем правую ветку (HashJoin(INNER, L on [s_suppkey, o_custkey]))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: HashJoin(INNER, L on [s_suppkey, o_custkey])
+Children групп: [[supplier], [orders]]
+───────────────────────────────────────────────────────────────────────────
+  → HashJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='o_custkey', buildSideLeft=true, partitioned=false)
+    материализуем левую ветку (Scan(supplier, card=10000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(supplier, card=10000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(supplier): возвращаем исходный файл
+    путь к файлу: tables/supplier.tbl
+    → внешний файл для build (левая ветка): tables/supplier.tbl
+    материализуем правую ветку (Scan(orders, card=1500000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(orders, card=1500000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(orders): возвращаем исходный файл
+    путь к файлу: tables/orders.tbl
+    → внешний файл для probe (правая ветка): tables/orders.tbl
+    buildSideLeft=true → buildFile = leftFile, probeFile = rightFile
+    buildFile    = tables/supplier.tbl
+    buildSchema  (число полей) = 7
+    probeFile    = tables/orders.tbl
+    probeSchema  (число полей) = 9
+    buildKey     = 's_suppkey'
+    probeKey     = 'o_custkey'
+    создаём временный файл-вывода для HashJoin: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_11967488101608461227.tbl
+    → Partitioned = false → запускаем HashJoinIterator (в память)
+    → HashJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_11967488101608461227.tbl
+    → внешний файл для probe (правая ветка): /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_11967488101608461227.tbl
+    buildSideLeft=true → buildFile = leftFile, probeFile = rightFile
+    buildFile    = tables/customer.tbl
+    buildSchema  (число полей) = 8
+    probeFile    = /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_11967488101608461227.tbl
+    probeSchema  (число полей) = 16
+    buildKey     = 'c_custkey'
+    probeKey     = 'o_custkey'
+    создаём временный файл-вывода для HashJoin: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_12105646830352291183.tbl
+    → Partitioned = false → запускаем HashJoinIterator (в память)
+    → HashJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_12105646830352291183.tbl
+✓ План #3 выполнен за 1.594782375s, результат: build/output/plan3-20250624-144614.txt
+→ Выполняем план #4, стоимость = 97791.0
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: HashJoin(INNER, L on [o_custkey, s_suppkey])
+Children групп: [[orders], [supplier, customer]]
+───────────────────────────────────────────────────────────────────────────
+  → HashJoinOp(joinType=INNER, outerKey='o_custkey', innerKey='s_suppkey', buildSideLeft=true, partitioned=false)
+    материализуем левую ветку (Scan(orders, card=1500000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(orders, card=1500000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(orders): возвращаем исходный файл
+    путь к файлу: tables/orders.tbl
+    → внешний файл для build (левая ветка): tables/orders.tbl
+    материализуем правую ветку (MergeJoin(INNER on [s_suppkey = c_custkey]))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: MergeJoin(INNER on [s_suppkey = c_custkey])
+Children групп: [[supplier], [customer]]
+───────────────────────────────────────────────────────────────────────────
+  → SortMergeJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='c_custkey', alreadySorted=true, condOp=EQUALS)
+    материализуем левую ветку (Scan(supplier, card=10000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(supplier, card=10000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(supplier): возвращаем исходный файл
+    путь к файлу: tables/supplier.tbl
+    → левый «сырой» файл: tables/supplier.tbl
+    материализуем правую ветку (Scan(customer, card=150000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(customer, card=150000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(customer): возвращаем исходный файл
+    путь к файлу: tables/customer.tbl
+    → правый «сырой» файл: tables/customer.tbl
+    alreadySorted=true → используем исходные файлы без дополнительной сортировки
+    создаём временный файл-вывода: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_17819457506068547175.tbl
+    leftSorted = tables/supplier.tbl, rightSorted = tables/customer.tbl
+    запускаем MergeJoinIterator...
+    → SortMergeJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_17819457506068547175.tbl
+    → внешний файл для probe (правая ветка): /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_17819457506068547175.tbl
+    buildSideLeft=true → buildFile = leftFile, probeFile = rightFile
+    buildFile    = tables/orders.tbl
+    buildSchema  (число полей) = 9
+    probeFile    = /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_17819457506068547175.tbl
+    probeSchema  (число полей) = 15
+    buildKey     = 'o_custkey'
+    probeKey     = 's_suppkey'
+    создаём временный файл-вывода для HashJoin: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_850400980395688782.tbl
+    → Partitioned = false → запускаем HashJoinIterator (в память)
+    → HashJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_850400980395688782.tbl
+✓ План #4 выполнен за 1.894993333s, результат: build/output/plan4-20250624-144614.txt
+→ Выполняем план #5, стоимость = 260036.0
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: IndexNL(INNER on [o_custkey = c_custkey], index=build/indexes/customer_c_custkey.bpt)
+Children групп: [[orders, supplier], [customer]]
+───────────────────────────────────────────────────────────────────────────
+  → IndexNLJoinOp(joinType=INNER, outerKey='o_custkey', innerKey='c_custkey', indexPath=build/indexes/customer_c_custkey.bpt, condOp=EQUALS)
+    материализуем внешнюю ветку (HashJoin(INNER, L on [s_suppkey, o_custkey]))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: HashJoin(INNER, L on [s_suppkey, o_custkey])
+Children групп: [[supplier], [orders]]
+───────────────────────────────────────────────────────────────────────────
+  → HashJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='o_custkey', buildSideLeft=true, partitioned=false)
+    материализуем левую ветку (Scan(supplier, card=10000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(supplier, card=10000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(supplier): возвращаем исходный файл
+    путь к файлу: tables/supplier.tbl
+    → внешний файл для build (левая ветка): tables/supplier.tbl
+    материализуем правую ветку (Scan(orders, card=1500000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(orders, card=1500000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(orders): возвращаем исходный файл
+    путь к файлу: tables/orders.tbl
+    → внешний файл для probe (правая ветка): tables/orders.tbl
+    buildSideLeft=true → buildFile = leftFile, probeFile = rightFile
+    buildFile    = tables/supplier.tbl
+    buildSchema  (число полей) = 7
+    probeFile    = tables/orders.tbl
+    probeSchema  (число полей) = 9
+    buildKey     = 's_suppkey'
+    probeKey     = 'o_custkey'
+    создаём временный файл-вывода для HashJoin: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_12635237464827574522.tbl
+    → Partitioned = false → запускаем HashJoinIterator (в память)
+    → HashJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_12635237464827574522.tbl
+    → внешний файл: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/hashjoin_12635237464827574522.tbl
+    материализуем внутреннюю ветку (Scan(customer, card=150000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(customer, card=150000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(customer): возвращаем исходный файл
+    путь к файлу: tables/customer.tbl
+    → внутренний файл: tables/customer.tbl
+    создаём временный файл-вывода: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/indexnljoin_16297642190881668221.tbl
+    запускаем IndexNLJoinIterator...
+    → IndexNLJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/indexnljoin_16297642190881668221.tbl
+✓ План #5 выполнен за 2.131459792s, результат: build/output/plan5-20250624-144614.txt
+→ Выполняем план #6, стоимость = 1575091.0
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: IndexNL(INNER on [s_suppkey = o_custkey], index=build/indexes/orders_o_custkey.bpt)
+Children групп: [[supplier, customer], [orders]]
+───────────────────────────────────────────────────────────────────────────
+  → IndexNLJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='o_custkey', indexPath=build/indexes/orders_o_custkey.bpt, condOp=EQUALS)
+    материализуем внешнюю ветку (MergeJoin(INNER on [s_suppkey = c_custkey]))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: MergeJoin(INNER on [s_suppkey = c_custkey])
+Children групп: [[supplier], [customer]]
+───────────────────────────────────────────────────────────────────────────
+  → SortMergeJoinOp(joinType=INNER, outerKey='s_suppkey', innerKey='c_custkey', alreadySorted=true, condOp=EQUALS)
+    материализуем левую ветку (Scan(supplier, card=10000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(supplier, card=10000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(supplier): возвращаем исходный файл
+    путь к файлу: tables/supplier.tbl
+    → левый «сырой» файл: tables/supplier.tbl
+    материализуем правую ветку (Scan(customer, card=150000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(customer, card=150000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(customer): возвращаем исходный файл
+    путь к файлу: tables/customer.tbl
+    → правый «сырой» файл: tables/customer.tbl
+    alreadySorted=true → используем исходные файлы без дополнительной сортировки
+    создаём временный файл-вывода: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_518400742785410616.tbl
+    leftSorted = tables/supplier.tbl, rightSorted = tables/customer.tbl
+    запускаем MergeJoinIterator...
+    → SortMergeJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_518400742785410616.tbl
+    → внешний файл: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/sortmergejoin_518400742785410616.tbl
+    материализуем внутреннюю ветку (Scan(orders, card=1500000))
+=== Executor: обрабатываем Expression ─────────────────────────────────
+Operator: Scan(orders, card=1500000)
+Children групп: []
+───────────────────────────────────────────────────────────────────────────
+  → ScanOp(orders): возвращаем исходный файл
+    путь к файлу: tables/orders.tbl
+    → внутренний файл: tables/orders.tbl
+    создаём временный файл-вывода: /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/indexnljoin_9542522993517660731.tbl
+    запускаем IndexNLJoinIterator...
+    → IndexNLJoin результат записан в /var/folders/x0/jwz_zqvj2z9bngrh8ykfxx380000gq/T/executor_tmp_700331890941903543/indexnljoin_9542522993517660731.tbl
+✓ План #6 выполнен за 705.168667ms, результат: build/output/plan6-20250624-144614.txt
+Результаты выполнения топ-6 планов записаны в build/output/top-plans-20250624-144614.txt
+ЛУЧШИЙ план из 6: стоимость = 82891.0, время = 1.524830542s

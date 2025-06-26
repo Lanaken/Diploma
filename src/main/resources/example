@@ -1,0 +1,54 @@
+RIGHT supplier ON l_suppkey <> s_suppkey
+FULL nation   ON s_nationkey < n_nationkey
+INNER region  ON n_regionkey >= r_regionkey
+customer INNER orders ON c_custkey = o_custkey INNER supplier ON o_custkey = s_suppkey INNER nation   ON s_nationkey < n_nationkey INNER region  ON n_regionkey >= r_regionkey
+
+
+
+customer INNER orders ON c_custkey = o_custkey INNER supplier on o_custkey = s_suppkey
+
+SELECT *
+FROM   customer AS c
+JOIN   orders   AS o
+       ON c.c_custkey = o.o_custkey;
+
+SELECT *
+FROM   customer AS c
+JOIN   orders   AS o
+       ON c.c_custkey = o.o_custkey
+
+supplier inner nation on s_suppkey <= n_nationkey
+
+
+
+partsupp RIGHT supplier ON ps_suppkey = s_suppkey
+SELECT *
+FROM   partsupp  AS ps
+RIGHT JOIN supplier AS s
+       ON ps.ps_suppkey = s.s_suppkey;
+
+
+
+
+
+SELECT *
+FROM   customer AS c
+JOIN   orders   AS o
+       ON c.c_custkey = o.o_custkey
+
+
+RIGHT JOIN supplier AS s
+       ON l.l_suppkey <> s.s_suppkey
+
+FULL  JOIN nation AS n
+       ON s.s_nationkey < n.n_nationkey
+
+JOIN   region  AS r
+       ON n.n_regionkey >= r.r_regionkey;
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+table: lineitem
+columns:
+  - { name: l_orderkey,    type: INT }
+  - { name: l_partkey,     type: INT }
+  - { name: l_suppkey,     type: INT }
+  - { name: l_linenumber,  type: INT }
+  - { name: l_quantity,    type: DECIMAL, precision: 15, scale: 2 }
+  - { name: l_extendedprice, type: DECIMAL, precision: 15, scale: 2 }
+  - { name: l_discount,    type: DECIMAL, precision: 15, scale: 2 }
+  - { name: l_tax,         type: DECIMAL, precision: 15, scale: 2 }
+  - { name: l_returnflag,  type: CHAR, length: 1 }
+  - { name: l_linestatus,  type: CHAR, length: 1 }
+  - { name: l_shipdate,    type: DATE }
+  - { name: l_commitdate,  type: DATE }
+  - { name: l_receiptdate, type: DATE }
+  - { name: l_shipinstruct, type: CHAR, length: 25 }
+  - { name: l_shipmode,    type: CHAR, length: 10 }
+  - { name: l_comment,     type: CHAR, length: 44 }

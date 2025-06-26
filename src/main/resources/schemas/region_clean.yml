@@ -1,0 +1,5 @@
+table: region_clean
+columns:
+  - { name: r_regionkey, type: INT, index: true }
+  - { name: r_name,      type: CHAR, length: 25 }
+  - { name: r_comment,   type: CHAR, length: 152 }

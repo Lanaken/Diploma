@@ -1,0 +1,11 @@
+table: orders
+columns:
+  - { name: o_orderkey,      type: INT, index: true }
+  - { name: o_custkey,       type: INT, index: true }
+  - { name: o_orderstatus,   type: CHAR, length: 1 }
+  - { name: o_totalprice,    type: DECIMAL, precision: 15, scale: 2 }
+  - { name: o_orderdate,     type: DATE }
+  - { name: o_orderpriority, type: CHAR, length: 15 }
+  - { name: o_clerk,         type: CHAR, length: 15 }
+  - { name: o_shippriority,  type: INT }
+  - { name: o_comment,       type: STRING, length: 79 }

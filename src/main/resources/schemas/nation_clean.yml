@@ -1,0 +1,6 @@
+table: nation
+columns:
+  - { name: n_nationkey, type: INT, index: true }
+  - { name: n_name,      type: CHAR, length: 25 }
+  - { name: n_regionkey, type: INT }
+  - { name: n_comment,   type: CHAR, length: 152 }

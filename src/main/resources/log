@@ -1,0 +1,63 @@
+/opt/homebrew/Cellar/openjdk@21/21.0.6/libexec/openjdk.jdk/Contents/Home/bin/java -javaagent:/Applications/IntelliJ IDEA CE.app/Contents/lib/idea_rt.jar=51943 -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath /Users/m.r.petrov/IdeaProjects/DIploma/build/classes/kotlin/main:/Users/m.r.petrov/IdeaProjects/DIploma/build/resources/main:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.17.0/57a963c6258c49febc11390082d8503f71bb15a9/jackson-dataformat-yaml-2.17.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-kotlin/2.17.0/665dffdbf9ab92e7cf356621ba8df332048caa3a/jackson-module-kotlin-2.17.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/net.jpountz.lz4/lz4/1.3.0/c708bb2590c0652a642236ef45d9f99ff842a2ce/lz4-1.3.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.17.0/7173e9e1d4bc6d7ca03bc4eeedcd548b8b580b34/jackson-databind-2.17.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.17.0/a6e5058ef9720623c517252d17162f845306ff3a/jackson-core-2.17.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/2.2/3af797a25458550a16bf89acc8e4ab2b7f2bfce0/snakeyaml-2.2.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.17.0/880a742337010da4c851f843d8cac150e22dff9f/jackson-annotations-2.17.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.7.22/e61a16c5c838d324529a6aa72dfb88ea98958a29/kotlin-reflect-1.7.22.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm/1.5.0/f2355f60f5c027da0326c8af2d9c724d39aa0ce9/kotlinx-serialization-json-jvm-1.5.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.14.9/b69e7fff6c473d3ed2b489cdfd673a091fd94226/byte-buddy-1.14.9.jar:/Users/m.r.petrov/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-serialization-core-jvm/1.5.0/d701e8cccd443a7cc1a0bcac53432f2745dcdbda/kotlinx-serialization-core-jvm-1.5.0.jar org.bmstu.MainKt
+Найдено YAML файлов: 8
+ - part.yml
+ - partsupp.yml
+ - orders.yml
+ - customer.yml
+ - supplier.yml
+ - nation.yml
+ - lineitem.yml
+ - region.yml
+Схема: part с YSchema(table=part, columns=[Col(name=p_partkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=p_name, type=CHAR, length=55, precision=null, scale=null, index=false), Col(name=p_mfgr, type=CHAR, length=25, precision=null, scale=null, index=false), Col(name=p_brand, type=CHAR, length=10, precision=null, scale=null, index=false), Col(name=p_type, type=CHAR, length=25, precision=null, scale=null, index=false), Col(name=p_size, type=INT, length=null, precision=null, scale=null, index=false), Col(name=p_container, type=CHAR, length=10, precision=null, scale=null, index=false), Col(name=p_retailprice, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=p_comment, type=CHAR, length=23, precision=null, scale=null, index=false)])
+Схема: partsupp с YSchema(table=partsupp, columns=[Col(name=ps_partkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=ps_suppkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=ps_availqty, type=INT, length=null, precision=null, scale=null, index=false), Col(name=ps_supplycost, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=ps_comment, type=CHAR, length=199, precision=null, scale=null, index=false)])
+Схема: orders с YSchema(table=orders, columns=[Col(name=o_orderkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=o_custkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=o_status, type=CHAR, length=25, precision=null, scale=null, index=false), Col(name=o_totalprice, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=o_orderdate, type=DATE, length=null, precision=null, scale=null, index=false), Col(name=o_comment, type=STRING, length=256, precision=null, scale=null, index=false)])
+Схема: customer с YSchema(table=customer, columns=[Col(name=c_custkey, type=INT, length=null, precision=null, scale=null, index=true), Col(name=c_name, type=CHAR, length=25, precision=null, scale=null, index=true), Col(name=c_address, type=CHAR, length=40, precision=null, scale=null, index=false), Col(name=c_nationkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=c_phone, type=CHAR, length=15, precision=null, scale=null, index=false), Col(name=c_acctbal, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=c_mktsegment, type=CHAR, length=10, precision=null, scale=null, index=false), Col(name=c_comment, type=CHAR, length=117, precision=null, scale=null, index=false)])
+Схема: supplier с YSchema(table=supplier, columns=[Col(name=s_suppkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=s_name, type=CHAR, length=25, precision=null, scale=null, index=false), Col(name=s_address, type=CHAR, length=40, precision=null, scale=null, index=false), Col(name=s_nationkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=s_phone, type=CHAR, length=15, precision=null, scale=null, index=false), Col(name=s_acctbal, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=s_comment, type=CHAR, length=101, precision=null, scale=null, index=false)])
+Схема: nation с YSchema(table=nation, columns=[Col(name=n_nationkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=n_name, type=CHAR, length=25, precision=null, scale=null, index=false), Col(name=n_regionkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=n_comment, type=CHAR, length=152, precision=null, scale=null, index=false)])
+Схема: lineitem с YSchema(table=lineitem, columns=[Col(name=l_orderkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=l_partkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=l_suppkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=l_linenumber, type=INT, length=null, precision=null, scale=null, index=false), Col(name=l_quantity, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=l_extendedprice, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=l_discount, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=l_tax, type=DECIMAL, length=null, precision=15, scale=2, index=false), Col(name=l_returnflag, type=CHAR, length=1, precision=null, scale=null, index=false), Col(name=l_linestatus, type=CHAR, length=1, precision=null, scale=null, index=false), Col(name=l_shipdate, type=DATE, length=null, precision=null, scale=null, index=false), Col(name=l_commitdate, type=DATE, length=null, precision=null, scale=null, index=false), Col(name=l_receiptdate, type=DATE, length=null, precision=null, scale=null, index=false), Col(name=l_shipinstruct, type=CHAR, length=25, precision=null, scale=null, index=false), Col(name=l_shipmode, type=CHAR, length=10, precision=null, scale=null, index=false), Col(name=l_comment, type=CHAR, length=44, precision=null, scale=null, index=false)])
+Схема: region с YSchema(table=region, columns=[Col(name=r_regionkey, type=INT, length=null, precision=null, scale=null, index=false), Col(name=r_name, type=CHAR, length=25, precision=null, scale=null, index=false), Col(name=r_comment, type=CHAR, length=152, precision=null, scale=null, index=false)])
+Найдено таблиц: 16
+Читаем таблицу region.tbl по схеме region.yml
+Собираем статистику для tables/region.tbl …
+11.689625ms
+Схема для таблицы partsupp_clean.tbl не найдена.
+Схема для таблицы lineitem_clean.tbl не найдена.
+Схема для таблицы region_clean.tbl не найдена.
+Читаем таблицу supplier.tbl по схеме supplier.yml
+Собираем статистику для tables/supplier.tbl …
+50.975292ms
+Читаем таблицу nation.tbl по схеме nation.yml
+Собираем статистику для tables/nation.tbl …
+1.408666ms
+Читаем таблицу customer.tbl по схеме customer.yml
+Собираем статистику для tables/customer.tbl …
+250.358708ms
+Создаём индекс для таблицы tables/customer.tbl для поля c_custkey
+Создаём индекс для таблицы tables/customer.tbl для поля c_name
+0
+Схема для таблицы orders_clean.tbl не найдена.
+Читаем таблицу lineitem.tbl по схеме lineitem.yml
+Собираем статистику для tables/lineitem.tbl …
+11.837004709s
+Схема для таблицы supplier_clean.tbl не найдена.
+Схема для таблицы customer_clean.tbl не найдена.
+Читаем таблицу orders.tbl по схеме orders.yml
+Собираем статистику для tables/orders.tbl …
+1.233289041s
+Схема для таблицы part_clean.tbl не найдена.
+Схема для таблицы nation_clean.tbl не найдена.
+Читаем таблицу partsupp.tbl по схеме partsupp.yml
+Собираем статистику для tables/partsupp.tbl …
+462.335166ms
+Читаем таблицу part.tbl по схеме part.yml
+Собираем статистику для tables/part.tbl …
+166.540625ms
+Статистика для region записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/region.yaml
+Статистика для supplier записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/supplier.yaml
+Статистика для nation записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/nation.yaml
+Статистика для customer записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/customer.yaml
+Статистика для lineitem записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/lineitem.yaml
+Статистика для orders записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/orders.yaml
+Статистика для partsupp записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/partsupp.yaml
+Статистика для part записана в /Users/m.r.petrov/IdeaProjects/DIploma/build/stats/part.yaml
+>

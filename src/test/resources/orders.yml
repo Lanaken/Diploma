@@ -1,0 +1,8 @@
+table: orders
+columns:
+  - { name: o_orderkey,   type: INT }
+  - { name: o_custkey,    type: INT }
+  - { name: o_status,     type: CHAR, length: 25 }
+  - { name: o_totalprice, type: DECIMAL, precision: 15, scale: 2 }
+  - { name: o_orderdate,  type: DATE }
+  - { name: o_comment,    type: STRING }
