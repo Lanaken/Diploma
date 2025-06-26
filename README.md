@@ -25,3 +25,13 @@ make
 ./dbgen -s 1
 
 Появятся файлы, те что в формате .tbl нужно положить в папку tables в корне проекта
+Должна появится следующие файлы:
+customer.tbl
+lineitem.tbl
+nation.tbl
+orders.tbl
+part.tbl
+partsupp.tbl
+region.tbl
+supplier.tbl
+И их clean версии
